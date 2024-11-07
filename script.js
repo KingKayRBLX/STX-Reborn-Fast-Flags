@@ -19,13 +19,13 @@ document.querySelectorAll('.day-select').forEach(daySelect => {
     const despawnTime1 = document.getElementById('merchant-despawn-time-1').value;
     const despawnTime2 = document.getElementById('merchant-despawn-time-2').value;
   
-    // For spawn days and despawn days, check the checked status of each checkbox
+    // For spawn days and despawn days, find the checked checkboxes
     const spawnDay1Checked = document.querySelector('#spawn-day-1 .day-select input[type="checkbox"]:checked');
     const spawnDay2Checked = document.querySelector('#spawn-day-2 .day-select input[type="checkbox"]:checked');
     const despawnDay1Checked = document.querySelector('#despawn-day-1 .day-select input[type="checkbox"]:checked');
     const despawnDay2Checked = document.querySelector('#despawn-day-2 .day-select input[type="checkbox"]:checked');
   
-    // Get the value of the selected checked checkbox
+    // Get the value of the selected checked checkbox, or null if none is checked
     const spawnDay1 = spawnDay1Checked ? spawnDay1Checked.value : null;
     const spawnDay2 = spawnDay2Checked ? spawnDay2Checked.value : null;
     const despawnDay1 = despawnDay1Checked ? despawnDay1Checked.value : null;
@@ -47,3 +47,4 @@ document.querySelectorAll('.day-select').forEach(daySelect => {
   
     console.log("Saving data:", data);
   });
+  
