@@ -295,13 +295,14 @@
       const despawnTime1 = document.getElementById('merchant-despawn-time-1').value;
       const despawnTime2 = document.getElementById('merchant-despawn-time-2').value;
 
-      const spawnDays1 = Array.from(document.querySelectorAll('.column:first-child .day-select input[type="checkbox"]:checked'))
+      const spawnDays1 = Array.from(document.querySelectorAll('#spawn-day-1 .day-select input[type="checkbox"]:checked'))
                     .map(checkbox => checkbox.value);
-      const spawnDays2 = Array.from(document.querySelectorAll('.column:first-child .day-select input[type="checkbox"]:checked'))
+const spawnDays2 = Array.from(document.querySelectorAll('#spawn-day-2 .day-select input[type="checkbox"]:checked'))
                     .map(checkbox => checkbox.value);
-      const despawnDays1 = Array.from(document.querySelectorAll('.column:last-child .day-select input[type="checkbox"]:checked'))
+
+const despawnDays1 = Array.from(document.querySelectorAll('#despawn-day-1 .day-select input[type="checkbox"]:checked'))
                     .map(checkbox => checkbox.value);
-      const despawnDays2 = Array.from(document.querySelectorAll('.column:last-child .day-select input[type="checkbox"]:checked'))
+const despawnDays2 = Array.from(document.querySelectorAll('#despawn-day-2 .day-select input[type="checkbox"]:checked'))
                     .map(checkbox => checkbox.value);
 
       if (!apiKey) {
