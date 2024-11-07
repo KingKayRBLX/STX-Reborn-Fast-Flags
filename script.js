@@ -1,8 +1,8 @@
 document.querySelectorAll('.day-select').forEach(daySelect => {
     daySelect.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
       checkbox.addEventListener('change', () => {
+        // Uncheck all other checkboxes in the same group to allow only one selection
         if (checkbox.checked) {
-          // Uncheck all other checkboxes in the same group
           daySelect.querySelectorAll('input[type="checkbox"]').forEach(cb => {
             if (cb !== checkbox) cb.checked = false;
           });
@@ -19,17 +19,11 @@ document.querySelectorAll('.day-select').forEach(daySelect => {
     const despawnTime1 = document.getElementById('merchant-despawn-time-1').value;
     const despawnTime2 = document.getElementById('merchant-despawn-time-2').value;
   
-    // Get the checked values for each day section (spawn and despawn)
-    const spawnDay1Checked = document.querySelector('#spawn-day-1 .day-select input[type="checkbox"]:checked');
-    const spawnDay2Checked = document.querySelector('#spawn-day-2 .day-select input[type="checkbox"]:checked');
-    const despawnDay1Checked = document.querySelector('#despawn-day-1 .day-select input[type="checkbox"]:checked');
-    const despawnDay2Checked = document.querySelector('#despawn-day-2 .day-select input[type="checkbox"]:checked');
-  
-    // Get the value of the checked checkbox or null if none is checked
-    const spawnDay1 = spawnDay1Checked ? spawnDay1Checked.value : null;
-    const spawnDay2 = spawnDay2Checked ? spawnDay2Checked.value : null;
-    const despawnDay1 = despawnDay1Checked ? despawnDay1Checked.value : null;
-    const despawnDay2 = despawnDay2Checked ? despawnDay2Checked.value : null;
+    // Get the checked value for each spawn and despawn day section (only one per section)
+    const spawnDay1 = getCheckedDay('#spawn-day-1');
+    const spawnDay2 = getCheckedDay('#spawn-day-2');
+    const despawnDay1 = getCheckedDay('#despawn-day-1');
+    const despawnDay2 = getCheckedDay('#despawn-day-2');
   
     // Check if the Admin Key is present
     if (!apiKey) {
@@ -48,4 +42,10 @@ document.querySelectorAll('.day-select').forEach(daySelect => {
   
     console.log("Saving data:", data);
   });
+  
+  // Helper function to get the checked day value (only one checked day per section)
+  function getCheckedDay(daySectionId) {
+    const checkedCheckbox = document.querySelector(`${daySectionId} .day-select input[type="checkbox"]:checked`);
+    return checkedCheckbox ? checkedCheckbox.value : null;
+  }
   
