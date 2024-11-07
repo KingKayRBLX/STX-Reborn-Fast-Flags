@@ -50,27 +50,45 @@
     const db = firebase.firestore();
 
     // Handle Roblox login and user ID verification
-    document.getElementById('login-button').addEventListener('click', async () => {
-      try {
-        const userCredential = await auth.signInWithPopup(new firebase.auth.OAuthProvider('roblox.com'));
-        const userId = userCredential.user.uid; // Roblox user ID
-
-        // Check if the user is in the admin list
-        const adminRef = db.collection('admins').doc(userId);
-        const adminDoc = await adminRef.get();
-
-        if (adminDoc.exists) {
-          // User is an admin, show the editor
-          document.querySelector('.data-section').style.display = 'block';
-          document.querySelector('.login-section').style.display = 'none';
-        } else {
-          // Access denied
-          document.getElementById('access-denied').style.display = 'block';
-        }
-      } catch (error) {
-        console.error('Login failed:', error);
-      }
+    document.getElementById('login-button').addEventListener('click', () => {
+      // Step 1: Redirect to Roblox OAuth authentication
+      const robloxAuthUrl = 'https://apis.roblox.com/oauth2/authorize?client_id=YOUR_ROBLOX_CLIENT_ID&response_type=code&redirect_uri=YOUR_REDIRECT_URI';
+      window.location.href = robloxAuthUrl;
     });
+
+    // After Roblox OAuth, this page will receive the `code` parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const authCode = urlParams.get('code');
+
+    if (authCode) {
+      // Step 2: Exchange the authorization code for a user ID
+      const robloxApiUrl = `https://apis.roblox.com/oauth2/token?code=${authCode}&client_id=YOUR_ROBLOX_CLIENT_ID&client_secret=YOUR_ROBLOX_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI`;
+      fetch(robloxApiUrl, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+          const robloxUserId = data.user_id;  // Get the user's Roblox ID
+
+          // Step 3: Check if the user is an admin
+          db.collection('admins').doc(robloxUserId).get()
+            .then(doc => {
+              if (doc.exists) {
+                // User is an admin, show the editor
+                document.querySelector('.data-section').style.display = 'block';
+                document.querySelector('.login-section').style.display = 'none';
+              } else {
+                // Access denied
+                document.getElementById('access-denied').style.display = 'block';
+              }
+            })
+            .catch(error => {
+              console.error('Error checking admin status:', error);
+            });
+        })
+        .catch(error => {
+          console.error('Error during Roblox OAuth:', error);
+        });
+    }
+
   </script>
 </body>
 </html>
