@@ -5,7 +5,176 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>STX Reborn FFlags Editor</title>
   <style>
-    /* Your existing styles here */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #ffffff;
+      background-color: #161616;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 10px;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
+      padding: 20px;
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      color: #3498db;
+      text-shadow: 0px 4px 10px rgba(52, 152, 219, 0.5);
+    }
+
+    .api-key-section,
+    .data-section {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0 5px;
+      color: #bbb;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #2a2a2a;
+      border: 2px solid #444;
+      border-radius: 6px;
+      color: #ddd;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="time"]:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+    }
+
+    .divider {
+      margin: 20px 0;
+      border-top: 1px solid #555;
+    }
+
+    .columns {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+    }
+
+    .column h3 {
+      margin-bottom: 10px;
+      color: #3498db;
+      font-weight: bold;
+    }
+
+    .day-section {
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #555;
+    }
+
+    .day-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .day-select {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .day-select label {
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 5px 0;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .day-select label:hover {
+      color: #3498db;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      appearance: none;
+      background-color: #333;
+      border: 2px solid #3498db;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked {
+      background-color: #3498db;
+      border-color: #3498db;
+    }
+
+    .save-button {
+      width: 100%;
+      padding: 15px;
+      background-color: #3498db;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s ease;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+    }
+
+    .save-button:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (min-width: 600px) {
+      .columns {
+        flex-direction: row;
+      }
+    }
   </style>
 </head>
 <body>
@@ -14,81 +183,142 @@
       <h1>STX Reborn Fast Flags Editor</h1>
     </header>
 
-    <section class="login-section">
-      <h2>Login with Roblox</h2>
-      <button id="login-button">Login with Roblox</button>
-      <div id="access-denied" style="display:none; color: red;">Access Denied</div>
+    <section class="admin-key-section">
+      <label for="admin-key">Enter Admin Credentials:</label>
+      <input type="text" id="admin-key" placeholder="Paste your provided administrator credentials.">
     </section>
 
-    <section class="data-section" style="display:none;">
+    <section class="data-section">
       <h2>Update Countdown</h2>
-      <!-- Your existing data section here -->
+      <label for="update-countdown">Update Countdown (Epoch Timestamp):</label>
+      <input type="number" id="update-countdown" placeholder="Enter Unix timestamp">
+      <div class="divider"></div>
+
+      <div class="columns">
+        <!-- Column for Spawn Days and Times -->
+        <div class="column">
+          <div class="day-section" id="spawn-day-1">
+            <h3>Merchant Spawn - Day 1</h3>
+            <label for="merchant-spawn-time-1">Spawn Time (24-hour format):</label>
+            <input type="time" id="merchant-spawn-time-1">
+
+            <label>Select Spawn Day 1:</label>
+            <div class="day-select">
+              <label><input type="checkbox" name="spawn-day-1" value="Monday"> Monday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Tuesday"> Tuesday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Wednesday"> Wednesday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Thursday"> Thursday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Friday"> Friday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Saturday"> Saturday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Sunday"> Sunday</label>
+            </div>
+          </div>
+
+          <div class="day-section" id="spawn-day-2">
+            <h3>Merchant Spawn - Day 2</h3>
+            <label for="merchant-spawn-time-2">Spawn Time (24-hour format):</label>
+            <input type="time" id="merchant-spawn-time-2">
+
+            <label>Select Spawn Day 2:</label>
+            <div class="day-select">
+              <label><input type="checkbox" name="spawn-day-2" value="Monday"> Monday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Tuesday"> Tuesday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Wednesday"> Wednesday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Thursday"> Thursday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Friday"> Friday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Saturday"> Saturday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Sunday"> Sunday</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column for Despawn Days and Times -->
+        <div class="column">
+          <div class="day-section" id="despawn-day-1">
+            <h3>Merchant Despawn - Day 1</h3>
+            <label for="merchant-despawn-time-1">Despawn Time (24-hour format):</label>
+            <input type="time" id="merchant-despawn-time-1">
+
+            <label>Select Despawn Day 1:</label>
+            <div class="day-select">
+              <label><input type="checkbox" name="despawn-day-1" value="Monday"> Monday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Tuesday"> Tuesday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Wednesday"> Wednesday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Thursday"> Thursday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Friday"> Friday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Saturday"> Saturday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Sunday"> Sunday</label>
+            </div>
+          </div>
+
+          <div class="day-section" id="despawn-day-2">
+            <h3>Merchant Despawn - Day 2</h3>
+            <label for="merchant-despawn-time-2">Despawn Time (24-hour format):</label>
+            <input type="time" id="merchant-despawn-time-2">
+
+            <label>Select Despawn Day 2:</label>
+            <div class="day-select">
+              <label><input type="checkbox" name="despawn-day-2" value="Monday"> Monday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Tuesday"> Tuesday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Wednesday"> Wednesday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Thursday"> Thursday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Friday"> Friday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Saturday"> Saturday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Sunday"> Sunday</label>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <button class="save-button">Save Changes</button>
   </div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
-
   <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "YOUR_FIREBASE_API_KEY",
-      authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-      projectId: "YOUR_FIREBASE_PROJECT_ID",
-      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_FIREBASE_SENDER_ID",
-      appId: "YOUR_FIREBASE_APP_ID"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // Handle Roblox login and user ID verification
-    document.getElementById('login-button').addEventListener('click', () => {
-      // Step 1: Redirect to Roblox OAuth authentication
-      const robloxAuthUrl = 'https://apis.roblox.com/oauth2/authorize?client_id=YOUR_ROBLOX_CLIENT_ID&response_type=code&redirect_uri=YOUR_REDIRECT_URI';
-      window.location.href = robloxAuthUrl;
-    });
-
-    // After Roblox OAuth, this page will receive the `code` parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const authCode = urlParams.get('code');
-
-    if (authCode) {
-      // Step 2: Exchange the authorization code for a user ID
-      const robloxApiUrl = `https://apis.roblox.com/oauth2/token?code=${authCode}&client_id=YOUR_ROBLOX_CLIENT_ID&client_secret=YOUR_ROBLOX_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI`;
-      fetch(robloxApiUrl, { method: 'POST' })
-        .then(response => response.json())
-        .then(data => {
-          const robloxUserId = data.user_id;  // Get the user's Roblox ID
-
-          // Step 3: Check if the user is an admin
-          db.collection('admins').doc(robloxUserId).get()
-            .then(doc => {
-              if (doc.exists) {
-                // User is an admin, show the editor
-                document.querySelector('.data-section').style.display = 'block';
-                document.querySelector('.login-section').style.display = 'none';
-              } else {
-                // Access denied
-                document.getElementById('access-denied').style.display = 'block';
-              }
-            })
-            .catch(error => {
-              console.error('Error checking admin status:', error);
+    document.querySelectorAll('.day-select').forEach(daySelect => {
+      daySelect.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            daySelect.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+              if (cb !== checkbox) cb.checked = false;
             });
-        })
-        .catch(error => {
-          console.error('Error during Roblox OAuth:', error);
+          }
         });
-    }
+      });
+    });
+    
+    document.querySelector('.save-button').addEventListener('click', () => {
+      const apiKey = document.getElementById('admin-key').value;
+      const updateCountdown = document.getElementById('update-countdown').value;
+      const spawnTime1 = document.getElementById('merchant-spawn-time-1').value;
+      const spawnTime2 = document.getElementById('merchant-spawn-time-2').value;
+      const despawnTime1 = document.getElementById('merchant-despawn-time-1').value;
+      const despawnTime2 = document.getElementById('merchant-despawn-time-2').value;
 
+      const spawnDays1 = Array.from(document.querySelectorAll('.column:first-child .day-select input[type="checkbox"]:checked'))
+                    .map(checkbox => checkbox.value);
+      const spawnDays2 = Array.from(document.querySelectorAll('.column:first-child .day-select input[type="checkbox"]:checked'))
+                    .map(checkbox => checkbox.value);
+      const despawnDays1 = Array.from(document.querySelectorAll('.column:last-child .day-select input[type="checkbox"]:checked'))
+                    .map(checkbox => checkbox.value);
+      const despawnDays2 = Array.from(document.querySelectorAll('.column:last-child .day-select input[type="checkbox"]:checked'))
+                    .map(checkbox => checkbox.value);
+
+      if (!apiKey) {
+        alert("Admin Key is required!");
+        return;
+      }
+
+      const data = {
+        updateCountdown: updateCountdown,
+        merchantSpawn1: { time: spawnTime1, days: spawnDays1 },
+        merchantSpawn2: { time: spawnTime2, days: spawnDays2 },
+        merchantDespawn1: { time: despawnTime1, days: despawnDays1 },
+        merchantDespawn2: { time: despawnTime2, days: despawnDays2 }
+      };
+
+      console.log("Saving data:", data);
+    });
   </script>
 </body>
 </html>
