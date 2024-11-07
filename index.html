@@ -174,9 +174,9 @@
       <h1>STX Reborn Fast Flags Editor</h1>
     </header>
 
-    <section class="api-key-section">
-      <label for="api-key">Enter API Datastore Key:</label>
-      <input type="text" id="api-key" placeholder="Paste your API key here">
+    <section class="admin-key-section">
+      <label for="admin-key">Enter Admin Credentials:</label>
+      <input type="text" id="admin-key" placeholder="Paste your provided administrator credentials.">
     </section>
 
     <section class="data-section">
@@ -267,7 +267,7 @@
 
   <script>
     document.querySelector('.save-button').addEventListener('click', () => {
-      const apiKey = document.getElementById('api-key').value;
+      const apiKey = document.getElementById('admin-key').value;
       const updateCountdown = document.getElementById('update-countdown').value;
       const spawnTime1 = document.getElementById('merchant-spawn-time-1').value;
       const spawnTime2 = document.getElementById('merchant-spawn-time-2').value;
@@ -284,7 +284,7 @@
                     .map(checkbox => checkbox.value);
 
       if (!apiKey) {
-        alert("API Key is required!");
+        alert("Admin Key is required!");
         return;
       }
 
