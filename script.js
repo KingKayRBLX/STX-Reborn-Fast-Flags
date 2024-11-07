@@ -19,24 +19,25 @@ document.querySelectorAll('.day-select').forEach(daySelect => {
     const despawnTime1 = document.getElementById('merchant-despawn-time-1').value;
     const despawnTime2 = document.getElementById('merchant-despawn-time-2').value;
   
-    // For spawn days and despawn days, find the checked checkboxes
+    // Get the checked values for each day section (spawn and despawn)
     const spawnDay1Checked = document.querySelector('#spawn-day-1 .day-select input[type="checkbox"]:checked');
     const spawnDay2Checked = document.querySelector('#spawn-day-2 .day-select input[type="checkbox"]:checked');
     const despawnDay1Checked = document.querySelector('#despawn-day-1 .day-select input[type="checkbox"]:checked');
     const despawnDay2Checked = document.querySelector('#despawn-day-2 .day-select input[type="checkbox"]:checked');
   
-    // Get the value of the selected checked checkbox, or null if none is checked
+    // Get the value of the checked checkbox or null if none is checked
     const spawnDay1 = spawnDay1Checked ? spawnDay1Checked.value : null;
     const spawnDay2 = spawnDay2Checked ? spawnDay2Checked.value : null;
     const despawnDay1 = despawnDay1Checked ? despawnDay1Checked.value : null;
     const despawnDay2 = despawnDay2Checked ? despawnDay2Checked.value : null;
   
+    // Check if the Admin Key is present
     if (!apiKey) {
       alert("Admin Key is required!");
       return;
     }
   
-    // Create the data object
+    // Prepare the data to be saved
     const data = {
       updateCountdown: updateCountdown,
       merchantSpawn1: { time: spawnTime1, day: spawnDay1 },
