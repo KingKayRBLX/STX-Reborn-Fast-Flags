@@ -38,7 +38,7 @@ document.querySelectorAll('.day-select').forEach(daySelect => {
     }
   
     // Prepare the data to be saved
-    const data = {s
+    const data = {
       updateCountdown: updateCountdown,
       merchantSpawn1: { time: spawnTime1, day: spawnDay1 },
       merchantSpawn2: { time: spawnTime2, day: spawnDay2 },
