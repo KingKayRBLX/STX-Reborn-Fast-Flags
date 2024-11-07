@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roblox Data Editor</title>
+  <title>STX Reborn FFlags Editor</title>
   <style>
     * {
       margin: 0;
@@ -18,12 +18,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 10px;
     }
 
     .container {
-      width: 700px;
-      padding: 30px;
+      max-width: 700px;
+      width: 100%;
+      padding: 20px;
       background-color: #1c1c1c;
       border-radius: 10px;
       box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
@@ -36,11 +38,11 @@
 
     header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     h1 {
-      font-size: 2em;
+      font-size: 1.8em;
       color: #3498db;
       text-shadow: 0px 4px 10px rgba(52, 152, 219, 0.5);
     }
@@ -61,7 +63,7 @@
     input[type="number"],
     input[type="time"] {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       margin-bottom: 10px;
       background-color: #2a2a2a;
       border: 2px solid #444;
@@ -85,7 +87,7 @@
 
     .columns {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       gap: 20px;
     }
 
@@ -131,30 +133,20 @@
       color: #3498db;
     }
 
-    input[type="radio"],
     input[type="checkbox"] {
       width: 18px;
       height: 18px;
       appearance: none;
       background-color: #333;
       border: 2px solid #3498db;
-      border-radius: 50%;
+      border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
-    input[type="radio"]:checked,
     input[type="checkbox"]:checked {
       background-color: #3498db;
       border-color: #3498db;
-    }
-
-    input[type="radio"] {
-      border-radius: 50%;
-    }
-
-    input[type="checkbox"] {
-      border-radius: 4px;
     }
 
     .save-button {
@@ -176,17 +168,24 @@
       background-color: #2980b9;
       transform: translateY(-2px);
     }
+
+    /* Responsive Design */
+    @media (min-width: 600px) {
+      .columns {
+        flex-direction: row;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Roblox Cloud API Data Editor</h1>
+      <h1>STX Reborn Fast Flags Editor</h1>
     </header>
 
-    <section class="api-key-section">
-      <label for="api-key">Enter API Datastore Key:</label>
-      <input type="text" id="api-key" placeholder="Paste your API key here">
+    <section class="admin-key-section">
+      <label for="admin-key">Enter Admin Credentials:</label>
+      <input type="text" id="admin-key" placeholder="Paste your provided administrator credentials.">
     </section>
 
     <section class="data-section">
@@ -198,76 +197,48 @@
       <div class="columns">
         <!-- Column for Spawn Days and Times -->
         <div class="column">
-          <div class="day-section">
+          <div class="day-section" id="spawn-day-1">
             <h3>Merchant Spawn - Day 1</h3>
             <label for="merchant-spawn-time-1">Spawn Time (24-hour format):</label>
             <input type="time" id="merchant-spawn-time-1">
 
             <label>Select Spawn Day 1:</label>
             <div class="day-select">
-              <label><input type="radio" name="spawn-day-1" value="Monday"> Monday</label>
-              <label><input type="radio" name="spawn-day-1" value="Tuesday"> Tuesday</label>
-              <label><input type="radio" name="spawn-day-1" value="Wednesday"> Wednesday</label>
-              <label><input type="radio" name="spawn-day-1" value="Thursday"> Thursday</label>
-              <label><input type="radio" name="spawn-day-1" value="Friday"> Friday</label>
-              <label><input type="radio" name="spawn-day-1" value="Saturday"> Saturday</label>
-              <label><input type="radio" name="spawn-day-1" value="Sunday"> Sunday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Monday"> Monday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Tuesday"> Tuesday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Wednesday"> Wednesday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Thursday"> Thursday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Friday"> Friday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Saturday"> Saturday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Sunday"> Sunday</label>
             </div>
           </div>
+          
+          <!-- Additional Spawn Day Sections... -->
 
-          <div class="day-section">
-            <h3>Merchant Spawn - Day 2</h3>
-            <label for="merchant-spawn-time-2">Spawn Time (24-hour format):</label>
-            <input type="time" id="merchant-spawn-time-2">
-
-            <label>Select Spawn Day 2:</label>
-            <div class="day-select">
-              <label><input type="radio" name="spawn-day-2" value="Monday"> Monday</label>
-              <label><input type="radio" name="spawn-day-2" value="Tuesday"> Tuesday</label>
-              <label><input type="radio" name="spawn-day-2" value="Wednesday"> Wednesday</label>
-              <label><input type="radio" name="spawn-day-2" value="Thursday"> Thursday</label>
-              <label><input type="radio" name="spawn-day-2" value="Friday"> Friday</label>
-              <label><input type="radio" name="spawn-day-2" value="Saturday"> Saturday</label>
-              <label><input type="radio" name="spawn-day-2" value="Sunday"> Sunday</label>
-            </div>
-          </div>
         </div>
 
         <!-- Column for Despawn Days and Times -->
         <div class="column">
-          <div class="day-section">
+          <div class="day-section" id="despawn-day-1">
             <h3>Merchant Despawn - Day 1</h3>
             <label for="merchant-despawn-time-1">Despawn Time (24-hour format):</label>
             <input type="time" id="merchant-despawn-time-1">
 
             <label>Select Despawn Day 1:</label>
             <div class="day-select">
-              <label><input type="checkbox" value="Monday"> Monday</label>
-              <label><input type="checkbox" value="Tuesday"> Tuesday</label>
-              <label><input type="checkbox" value="Wednesday"> Wednesday</label>
-              <label><input type="checkbox" value="Thursday"> Thursday</label>
-              <label><input type="checkbox" value="Friday"> Friday</label>
-              <label><input type="checkbox" value="Saturday"> Saturday</label>
-              <label><input type="checkbox" value="Sunday"> Sunday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Monday"> Monday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Tuesday"> Tuesday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Wednesday"> Wednesday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Thursday"> Thursday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Friday"> Friday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Saturday"> Saturday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Sunday"> Sunday</label>
             </div>
           </div>
 
-          <div class="day-section">
-            <h3>Merchant Despawn - Day 2</h3>
-            <label for="merchant-despawn-time-2">Despawn Time (24-hour format):</label>
-            <input type="time" id="merchant-despawn-time-2">
+          <!-- Additional Despawn Day Sections... -->
 
-            <label>Select Despawn Day 2:</label>
-            <div class="day-select">
-              <label><input type="checkbox" value="Monday"> Monday</label>
-              <label><input type="checkbox" value="Tuesday"> Tuesday</label>
-              <label><input type="checkbox" value="Wednesday"> Wednesday</label>
-              <label><input type="checkbox" value="Thursday"> Thursday</label>
-              <label><input type="checkbox" value="Friday"> Friday</label>
-              <label><input type="checkbox" value="Saturday"> Saturday</label>
-              <label><input type="checkbox" value="Sunday"> Sunday</label>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -276,12 +247,16 @@
   </div>
 
   <script>
-    document.querySelector('.save-button').addEventListener('click', () => {
-      const selectedSpawnDay1 = document.querySelector('input[name="spawn-day-1"]:checked')?.value;
-      const selectedSpawnDay2 = document.querySelector('input[name="spawn-day-2"]:checked')?.value;
-      console.log("Selected Spawn Day 1:", selectedSpawnDay1);
-      console.log("Selected Spawn Day 2:", selectedSpawnDay2);
-      // Further actions for saving the data
+    document.querySelectorAll('.day-select').forEach(daySelect => {
+      daySelect.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            daySelect.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+              if (cb !== checkbox) cb.checked = false;
+            });
+          }
+        });
+      });
     });
   </script>
 </body>
