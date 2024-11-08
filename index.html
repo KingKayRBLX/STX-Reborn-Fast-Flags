@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STX Reborn FFlags Editor</title>
+  <!-- Load Montserrat font from Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap">
   <style>
     /* Base styling and color theme */
     * {
@@ -13,7 +15,7 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Montserrat', sans-serif;
       background-color: #161616;
       display: flex;
       justify-content: center;
@@ -30,6 +32,15 @@
       background-color: #1c1c1c;
       border-radius: 10px;
       box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+
+    /* Make the login screen visible by default */
+    #login-screen.active {
+      display: block;
+    }
+
+    #main-screen {
       display: none;
     }
 
@@ -127,8 +138,8 @@
 </head>
 <body>
 
-  <!-- Login Screen -->
-  <div class="container" id="login-screen">
+  <!-- Login Screen - Shown by default -->
+  <div class="container active" id="login-screen">
     <header>
       <h1>STX Reborn - Admin Login</h1>
     </header>
