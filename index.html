@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STX Reborn FFlags Editor</title>
   <style>
-    /* Basic Reset and Styling */
+    /* Base styling and color theme */
     * {
       margin: 0;
       padding: 0;
@@ -14,13 +14,13 @@
 
     body {
       font-family: Arial, sans-serif;
-      color: #ffffff;
       background-color: #161616;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 10px;
+      color: #ffffff;
     }
 
     .container {
@@ -30,11 +30,11 @@
       background-color: #1c1c1c;
       border-radius: 10px;
       box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease;
+      display: none;
     }
 
-    .container:hover {
-      transform: scale(1.02);
+    .container.active {
+      display: block;
     }
 
     header {
@@ -42,7 +42,7 @@
       margin-bottom: 20px;
     }
 
-    h1 {
+    h1, h2 {
       font-size: 1.8em;
       color: #3498db;
       text-shadow: 0px 4px 10px rgba(52, 152, 219, 0.5);
@@ -66,67 +66,16 @@
       border-radius: 6px;
       color: #ddd;
       outline: none;
-      transition: all 0.3s ease;
-    }
-
-    input[type="text"]:focus,
-    input[type="number"]:focus,
-    input[type="time"]:focus {
-      border-color: #3498db;
-      box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
-    }
-
-    .columns {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .column {
-      flex: 1;
-    }
-
-    .column h3 {
-      margin-bottom: 10px;
-      color: #3498db;
-      font-weight: bold;
-    }
-
-    .day-section {
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #555;
-    }
-
-    .day-select {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .day-select label {
-      font-size: 0.9em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 5px 0;
-      color: #ddd;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-
-    .day-select label:hover {
-      color: #3498db;
     }
 
     input[type="checkbox"] {
       width: 18px;
       height: 18px;
-      appearance: none;
       background-color: #333;
       border: 2px solid #3498db;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      margin-right: 10px;
     }
 
     input[type="checkbox"]:checked {
@@ -134,64 +83,69 @@
       border-color: #3498db;
     }
 
-    .save-button {
+    .button {
       width: 100%;
-      padding: 15px;
-      background-color: #3498db;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s ease;
+      padding: 12px;
       margin-top: 20px;
-      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+      border-radius: 6px;
+      font-size: 1em;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border: none;
     }
 
-    .save-button:hover {
+    .button-blue {
+      background-color: #3498db;
+    }
+
+    .button-blue:hover {
       background-color: #2980b9;
-      transform: translateY(-2px);
     }
 
-    /* Responsive Design */
-    @media (min-width: 600px) {
-      .columns {
-        flex-direction: row;
-      }
+    /* Access Denied styling */
+    .access-denied-message {
+      color: #e74c3c;
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <!-- Login Screen -->
+  <div class="container" id="login-screen">
+    <header>
+      <h1>STX Reborn - Admin Login</h1>
+    </header>
+    <label for="admin-key">Admin Key:</label>
+    <input type="text" id="admin-key" placeholder="Enter Admin Key" />
+    <button class="button button-blue" onclick="checkAdminKey()">Login</button>
+    <p id="access-denied" class="access-denied-message" style="display: none;">
+      Access Denied: Invalid Admin Key
+    </p>
+  </div>
+
+  <!-- Main Fast Flags Editor Screen -->
+  <div class="container" id="main-screen">
     <header>
       <h1>STX Reborn Fast Flags Editor</h1>
     </header>
-
-    <section class="admin-key-section">
-      <label for="admin-key">Enter Admin Credentials:</label>
-      <input
-        type="text"
-        id="admin-key"
-        placeholder="Paste your provided administrator credentials."
-      />
-    </section>
-
     <section class="data-section">
-      <h2>Update Countdown</h2>
       <label for="update-countdown">Update Countdown (Epoch Timestamp):</label>
       <input type="number" id="update-countdown" placeholder="Enter Unix timestamp" />
 
       <div class="columns">
-        <!-- Column for Spawn Days and Times -->
         <div class="column">
-          <div class="day-section" id="spawn-day-1">
-            <h3>Merchant Spawn - Day 1</h3>
-            <label for="merchant-spawn-time-1">Spawn Time (24-hour format):</label>
-            <input type="time" id="merchant-spawn-time-1" />
+          <h2>Merchant Spawn Times</h2>
 
-            <label>Select Spawn Day 1:</label>
-            <div class="day-select">
+          <div class="day-section">
+            <h3>Spawn - Day 1</h3>
+            <label for="merchant-spawn-time-1">Time (24-hour format):</label>
+            <input type="time" id="merchant-spawn-time-1" />
+            <div>
               <label><input type="checkbox" name="spawn-day-1" value="Monday" /> Monday</label>
               <label><input type="checkbox" name="spawn-day-1" value="Tuesday" /> Tuesday</label>
               <label><input type="checkbox" name="spawn-day-1" value="Wednesday" /> Wednesday</label>
@@ -201,17 +155,31 @@
               <label><input type="checkbox" name="spawn-day-1" value="Sunday" /> Sunday</label>
             </div>
           </div>
+
+          <div class="day-section">
+            <h3>Spawn - Day 2</h3>
+            <label for="merchant-spawn-time-2">Time (24-hour format):</label>
+            <input type="time" id="merchant-spawn-time-2" />
+            <div>
+              <label><input type="checkbox" name="spawn-day-2" value="Monday" /> Monday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Tuesday" /> Tuesday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Wednesday" /> Wednesday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Thursday" /> Thursday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Friday" /> Friday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Saturday" /> Saturday</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Sunday" /> Sunday</label>
+            </div>
+          </div>
         </div>
 
-        <!-- Column for Despawn Days and Times -->
         <div class="column">
-          <div class="day-section" id="despawn-day-1">
-            <h3>Merchant Despawn - Day 1</h3>
-            <label for="merchant-despawn-time-1">Despawn Time (24-hour format):</label>
-            <input type="time" id="merchant-despawn-time-1" />
+          <h2>Merchant Despawn Times</h2>
 
-            <label>Select Despawn Day 1:</label>
-            <div class="day-select">
+          <div class="day-section">
+            <h3>Despawn - Day 1</h3>
+            <label for="merchant-despawn-time-1">Time (24-hour format):</label>
+            <input type="time" id="merchant-despawn-time-1" />
+            <div>
               <label><input type="checkbox" name="despawn-day-1" value="Monday" /> Monday</label>
               <label><input type="checkbox" name="despawn-day-1" value="Tuesday" /> Tuesday</label>
               <label><input type="checkbox" name="despawn-day-1" value="Wednesday" /> Wednesday</label>
@@ -221,11 +189,26 @@
               <label><input type="checkbox" name="despawn-day-1" value="Sunday" /> Sunday</label>
             </div>
           </div>
+
+          <div class="day-section">
+            <h3>Despawn - Day 2</h3>
+            <label for="merchant-despawn-time-2">Time (24-hour format):</label>
+            <input type="time" id="merchant-despawn-time-2" />
+            <div>
+              <label><input type="checkbox" name="despawn-day-2" value="Monday" /> Monday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Tuesday" /> Tuesday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Wednesday" /> Wednesday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Thursday" /> Thursday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Friday" /> Friday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Saturday" /> Saturday</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Sunday" /> Sunday</label>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <button class="save-button">Save Changes</button>
+    <button class="button button-blue" onclick="saveChanges()">Save Changes</button>
   </div>
 
   <script src="script.js"></script>

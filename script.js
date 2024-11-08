@@ -1,16 +1,20 @@
-// Set admin key for access validation
+// Set admin key
 const ADMIN_KEY = "KAY";
 
-// Function to validate admin key
-document.getElementById('admin-key').addEventListener('blur', () => {
+// Function to check admin key and display the correct screen
+function checkAdminKey() {
   const apiKey = document.getElementById('admin-key').value;
-  if (apiKey !== ADMIN_KEY) {
-    alert("Invalid Admin Key!");
-    document.getElementById('admin-key').value = '';
-  }
-});
+  const accessDeniedMessage = document.getElementById('access-denied');
 
-// Restrict day selection to one checkbox per group
+  if (apiKey === ADMIN_KEY) {
+    document.getElementById('login-screen').classList.remove('active');
+    document.getElementById('main-screen').classList.add('active');
+  } else {
+    accessDeniedMessage.style.display = 'block';
+  }
+}
+
+// Handle checkbox selection to allow only one per day section
 document.querySelectorAll('.day-select').forEach(daySelect => {
   daySelect.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
     checkbox.addEventListener('change', () => {
@@ -23,35 +27,33 @@ document.querySelectorAll('.day-select').forEach(daySelect => {
   });
 });
 
-// Save button click handler
-document.querySelector('.save-button').addEventListener('click', () => {
+// Save function
+function saveChanges() {
   const updateCountdown = document.getElementById('update-countdown').value;
   const spawnTime1 = document.getElementById('merchant-spawn-time-1').value;
+  const spawnTime2 = document.getElementById('merchant-spawn-time-2').value;
   const despawnTime1 = document.getElementById('merchant-despawn-time-1').value;
+  const despawnTime2 = document.getElementById('merchant-despawn-time-2').value;
 
-  // Get checked values for spawn and despawn days
-  const spawnDay1 = getCheckedDay('#spawn-day-1');
-  const despawnDay1 = getCheckedDay('#despawn-day-1');
+  const spawnDay1 = getCheckedDay('spawn-day-1');
+  const spawnDay2 = getCheckedDay('spawn-day-2');
+  const despawnDay1 = getCheckedDay('despawn-day-1');
+  const despawnDay2 = getCheckedDay('despawn-day-2');
 
-  // Check if fields are filled
-  if (!updateCountdown || !spawnTime1 || !despawnTime1) {
-    alert("All fields must be filled out.");
-    return;
-  }
-
-  // Prepare the data to be saved
   const data = {
     updateCountdown,
     merchantSpawn1: { time: spawnTime1, day: spawnDay1 },
+    merchantSpawn2: { time: spawnTime2, day: spawnDay2 },
     merchantDespawn1: { time: despawnTime1, day: despawnDay1 },
+    merchantDespawn2: { time: despawnTime2, day: despawnDay2 },
   };
 
-  console.log("Saving data:", data);
+  console.log("Saved Data:", data);
   alert("Data saved successfully!");
-});
+}
 
-// Helper function to get the selected day for a section
-function getCheckedDay(daySectionId) {
-  const checkedCheckbox = document.querySelector(`${daySectionId} .day-select input[type="checkbox"]:checked`);
+// Helper function to get the checked day
+function getCheckedDay(name) {
+  const checkedCheckbox = document.querySelector(`input[name="${name}"]:checked`);
   return checkedCheckbox ? checkedCheckbox.value : null;
 }
