@@ -42,10 +42,16 @@
       margin-bottom: 20px;
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       font-size: 1.8em;
       color: #3498db;
       text-shadow: 0px 4px 10px rgba(52, 152, 219, 0.5);
+    }
+
+    h2 {
+      font-size: 1.5em;
+      margin-top: 20px;
+      color: #3498db;
     }
 
     label {
@@ -104,6 +110,12 @@
       background-color: #2980b9;
     }
 
+    .divider {
+      height: 1px;
+      background-color: #555;
+      margin: 20px 0;
+    }
+
     /* Access Denied styling */
     .access-denied-message {
       color: #e74c3c;
@@ -136,16 +148,19 @@
     <section class="data-section">
       <label for="update-countdown">Update Countdown (Epoch Timestamp):</label>
       <input type="number" id="update-countdown" placeholder="Enter Unix timestamp" />
+      <div class="divider"></div>
+
+      <h2>Merchant</h2>
 
       <div class="columns">
         <div class="column">
-          <h2>Merchant Spawn Times</h2>
+          <h3>Merchant Spawn Times</h3>
 
           <div class="day-section">
             <h3>Spawn - Day 1</h3>
             <label for="merchant-spawn-time-1">Time (24-hour format):</label>
             <input type="time" id="merchant-spawn-time-1" />
-            <div>
+            <div class="day-select">
               <label><input type="checkbox" name="spawn-day-1" value="Monday" /> Monday</label>
               <label><input type="checkbox" name="spawn-day-1" value="Tuesday" /> Tuesday</label>
               <label><input type="checkbox" name="spawn-day-1" value="Wednesday" /> Wednesday</label>
@@ -160,7 +175,7 @@
             <h3>Spawn - Day 2</h3>
             <label for="merchant-spawn-time-2">Time (24-hour format):</label>
             <input type="time" id="merchant-spawn-time-2" />
-            <div>
+            <div class="day-select">
               <label><input type="checkbox" name="spawn-day-2" value="Monday" /> Monday</label>
               <label><input type="checkbox" name="spawn-day-2" value="Tuesday" /> Tuesday</label>
               <label><input type="checkbox" name="spawn-day-2" value="Wednesday" /> Wednesday</label>
@@ -173,13 +188,13 @@
         </div>
 
         <div class="column">
-          <h2>Merchant Despawn Times</h2>
+          <h3>Merchant Despawn Times</h3>
 
           <div class="day-section">
             <h3>Despawn - Day 1</h3>
             <label for="merchant-despawn-time-1">Time (24-hour format):</label>
             <input type="time" id="merchant-despawn-time-1" />
-            <div>
+            <div class="day-select">
               <label><input type="checkbox" name="despawn-day-1" value="Monday" /> Monday</label>
               <label><input type="checkbox" name="despawn-day-1" value="Tuesday" /> Tuesday</label>
               <label><input type="checkbox" name="despawn-day-1" value="Wednesday" /> Wednesday</label>
@@ -194,7 +209,7 @@
             <h3>Despawn - Day 2</h3>
             <label for="merchant-despawn-time-2">Time (24-hour format):</label>
             <input type="time" id="merchant-despawn-time-2" />
-            <div>
+            <div class="day-select">
               <label><input type="checkbox" name="despawn-day-2" value="Monday" /> Monday</label>
               <label><input type="checkbox" name="despawn-day-2" value="Tuesday" /> Tuesday</label>
               <label><input type="checkbox" name="despawn-day-2" value="Wednesday" /> Wednesday</label>
