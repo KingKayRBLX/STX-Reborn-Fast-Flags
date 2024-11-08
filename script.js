@@ -1,49 +1,57 @@
-// Commenting out Firebase parts
-/*
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-// firebase.initializeApp(firebaseConfig);
-// const db = firebase.firestore();
-*/
-
-// Static admin key
+// Set admin key for access validation
 const ADMIN_KEY = "KAY";
 
-// Login button event listener
-document.getElementById('login-button').addEventListener('click', () => {
-  const adminKey = document.getElementById('admin-login-key').value;
-  const loginMessage = document.getElementById('login-message');
-
-  if (adminKey === ADMIN_KEY) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('main-ui').style.display = 'block';
-  } else {
-    loginMessage.textContent = "Access Denied: Invalid Admin Key";
-    loginMessage.style.color = "red";
+// Function to validate admin key
+document.getElementById('admin-key').addEventListener('blur', () => {
+  const apiKey = document.getElementById('admin-key').value;
+  if (apiKey !== ADMIN_KEY) {
+    alert("Invalid Admin Key!");
+    document.getElementById('admin-key').value = '';
   }
 });
 
-// Event listener for Save Changes button
-document.getElementById('save-button').addEventListener('click', () => {
+// Restrict day selection to one checkbox per group
+document.querySelectorAll('.day-select').forEach(daySelect => {
+  daySelect.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        daySelect.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          if (cb !== checkbox) cb.checked = false;
+        });
+      }
+    });
+  });
+});
+
+// Save button click handler
+document.querySelector('.save-button').addEventListener('click', () => {
   const updateCountdown = document.getElementById('update-countdown').value;
   const spawnTime1 = document.getElementById('merchant-spawn-time-1').value;
-  
-  // Get checked day for spawn-day-1
-  const spawnDay1 = document.querySelector('input[name="spawn-day-1"]:checked');
-  const selectedSpawnDay1 = spawnDay1 ? spawnDay1.value : null;
+  const despawnTime1 = document.getElementById('merchant-despawn-time-1').value;
 
+  // Get checked values for spawn and despawn days
+  const spawnDay1 = getCheckedDay('#spawn-day-1');
+  const despawnDay1 = getCheckedDay('#despawn-day-1');
+
+  // Check if fields are filled
+  if (!updateCountdown || !spawnTime1 || !despawnTime1) {
+    alert("All fields must be filled out.");
+    return;
+  }
+
+  // Prepare the data to be saved
   const data = {
-    updateCountdown: updateCountdown,
-    merchantSpawn1: { time: spawnTime1, day: selectedSpawnDay1 },
+    updateCountdown,
+    merchantSpawn1: { time: spawnTime1, day: spawnDay1 },
+    merchantDespawn1: { time: despawnTime1, day: despawnDay1 },
   };
 
   console.log("Saving data:", data);
-  alert("Changes saved successfully!");
+  alert("Data saved successfully!");
 });
+
+// Helper function to get the selected day for a section
+function getCheckedDay(daySectionId) {
+  const checkedCheckbox = document.querySelector(`${daySectionId} .day-select input[type="checkbox"]:checked`);
+  return checkedCheckbox ? checkedCheckbox.value : null;
+}

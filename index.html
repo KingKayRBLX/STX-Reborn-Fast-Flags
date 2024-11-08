@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STX Reborn FFlags Editor</title>
-
   <style>
-    /* Base Styling */
+    /* Basic Reset and Styling */
     * {
       margin: 0;
       padding: 0;
@@ -16,90 +15,44 @@
     body {
       font-family: Arial, sans-serif;
       color: #ffffff;
-      background-color: #0e0e0e;
+      background-color: #161616;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 10px;
     }
 
-    /* Login Screen */
-    #login-screen {
-      text-align: center;
-      max-width: 300px;
-      width: 90%;
-      padding: 40px;
-      background: #1c1c1c;
-      border-radius: 10px;
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
-      animation: fadeIn 1s ease forwards;
-    }
-
-    #login-screen h1 {
-      color: #ff6f61;
-      font-size: 2em;
-      margin-bottom: 20px;
-      text-shadow: 0px 0px 10px #00aaff;
-    }
-
-    #login-screen input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      margin: 15px 0;
-      background: #333;
-      border: none;
-      color: #ffffff;
-      border-radius: 6px;
-      outline: none;
-    }
-
-    .login-button {
-      background: #00aaff;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 1em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .login-button:hover {
-      background: #0088cc;
-    }
-
-    .login-message {
-      margin-top: 10px;
-      font-size: 0.9em;
-    }
-
-    /* Main UI container */
     .container {
-      display: none;
       max-width: 700px;
       width: 100%;
       padding: 20px;
-      background-color: #1e3a5a;
+      background-color: #1c1c1c;
       border-radius: 10px;
       box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
-      animation: fadeInContent 0.6s forwards;
+      transition: transform 0.3s ease;
     }
 
-    /* Fast Flags Editor */
-    h1 {
-      font-size: 1.8em;
-      color: #00aaff;
-      text-shadow: 0px 4px 10px rgba(0, 170, 255, 0.5);
+    .container:hover {
+      transform: scale(1.02);
+    }
+
+    header {
       text-align: center;
       margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      color: #3498db;
+      text-shadow: 0px 4px 10px rgba(52, 152, 219, 0.5);
     }
 
     label {
       font-size: 1em;
       display: block;
       margin: 10px 0 5px;
-      color: #ddd;
+      color: #bbb;
     }
 
     input[type="text"],
@@ -108,39 +61,83 @@
       width: 100%;
       padding: 10px;
       margin-bottom: 10px;
-      background-color: #27496d;
-      border: 2px solid #3e5f8a;
+      background-color: #2a2a2a;
+      border: 2px solid #444;
       border-radius: 6px;
       color: #ddd;
       outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="time"]:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+    }
+
+    .columns {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .column {
+      flex: 1;
+    }
+
+    .column h3 {
+      margin-bottom: 10px;
+      color: #3498db;
+      font-weight: bold;
+    }
+
+    .day-section {
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #555;
+    }
+
+    .day-select {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .day-select label {
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 5px 0;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .day-select label:hover {
+      color: #3498db;
     }
 
     input[type="checkbox"] {
       width: 18px;
       height: 18px;
       appearance: none;
-      background-color: #1e3a5a;
-      border: 2px solid #00aaff;
+      background-color: #333;
+      border: 2px solid #3498db;
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     input[type="checkbox"]:checked {
-      background-color: #00aaff;
-      border-color: #00aaff;
-    }
-
-    .day-select label {
-      font-size: 0.9em;
-      color: #ddd;
-      cursor: pointer;
+      background-color: #3498db;
+      border-color: #3498db;
     }
 
     .save-button {
       width: 100%;
       padding: 15px;
-      background-color: #00aaff;
+      background-color: #3498db;
       border: none;
       border-radius: 8px;
       color: white;
@@ -149,68 +146,86 @@
       cursor: pointer;
       transition: background-color 0.3s, transform 0.2s ease;
       margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
     }
 
     .save-button:hover {
-      background-color: #0088cc;
+      background-color: #2980b9;
       transform: translateY(-2px);
     }
 
-    /* Keyframes */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInContent {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* Responsive Design */
+    @media (min-width: 600px) {
+      .columns {
+        flex-direction: row;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Login Screen -->
-  <div class="login-screen" id="login-screen">
-    <header>
-      <h1>STX Reborn - Admin Login</h1>
-    </header>
-    <label for="admin-login-key">Admin Key:</label>
-    <input type="text" id="admin-login-key" placeholder="Enter Admin Key" />
-    <button class="login-button" id="login-button">Sign In</button>
-    <p id="login-message" class="login-message"></p>
-  </div>
-
-  <!-- Main UI container (hidden initially) -->
-  <div class="container" id="main-ui">
+  <div class="container">
     <header>
       <h1>STX Reborn Fast Flags Editor</h1>
     </header>
 
+    <section class="admin-key-section">
+      <label for="admin-key">Enter Admin Credentials:</label>
+      <input
+        type="text"
+        id="admin-key"
+        placeholder="Paste your provided administrator credentials."
+      />
+    </section>
+
     <section class="data-section">
+      <h2>Update Countdown</h2>
       <label for="update-countdown">Update Countdown (Epoch Timestamp):</label>
       <input type="number" id="update-countdown" placeholder="Enter Unix timestamp" />
 
-      <div class="day-section">
-        <h3>Merchant Spawn - Day 1</h3>
-        <label for="merchant-spawn-time-1">Spawn Time (24-hour format):</label>
-        <input type="time" id="merchant-spawn-time-1" />
+      <div class="columns">
+        <!-- Column for Spawn Days and Times -->
+        <div class="column">
+          <div class="day-section" id="spawn-day-1">
+            <h3>Merchant Spawn - Day 1</h3>
+            <label for="merchant-spawn-time-1">Spawn Time (24-hour format):</label>
+            <input type="time" id="merchant-spawn-time-1" />
 
-        <label>Select Spawn Day 1:</label>
-        <div class="day-select">
-          <label><input type="checkbox" name="spawn-day-1" value="Monday" /> Monday</label>
-          <label><input type="checkbox" name="spawn-day-1" value="Tuesday" /> Tuesday</label>
-          <label><input type="checkbox" name="spawn-day-1" value="Wednesday" /> Wednesday</label>
-          <label><input type="checkbox" name="spawn-day-1" value="Thursday" /> Thursday</label>
-          <label><input type="checkbox" name="spawn-day-1" value="Friday" /> Friday</label>
-          <label><input type="checkbox" name="spawn-day-1" value="Saturday" /> Saturday</label>
-          <label><input type="checkbox" name="spawn-day-1" value="Sunday" /> Sunday</label>
+            <label>Select Spawn Day 1:</label>
+            <div class="day-select">
+              <label><input type="checkbox" name="spawn-day-1" value="Monday" /> Monday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Tuesday" /> Tuesday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Wednesday" /> Wednesday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Thursday" /> Thursday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Friday" /> Friday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Saturday" /> Saturday</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Sunday" /> Sunday</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column for Despawn Days and Times -->
+        <div class="column">
+          <div class="day-section" id="despawn-day-1">
+            <h3>Merchant Despawn - Day 1</h3>
+            <label for="merchant-despawn-time-1">Despawn Time (24-hour format):</label>
+            <input type="time" id="merchant-despawn-time-1" />
+
+            <label>Select Despawn Day 1:</label>
+            <div class="day-select">
+              <label><input type="checkbox" name="despawn-day-1" value="Monday" /> Monday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Tuesday" /> Tuesday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Wednesday" /> Wednesday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Thursday" /> Thursday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Friday" /> Friday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Saturday" /> Saturday</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Sunday" /> Sunday</label>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Additional sections for Despawn, etc. -->
-
-      <button class="save-button" id="save-button">Save Changes</button>
     </section>
+
+    <button class="save-button">Save Changes</button>
   </div>
 
   <script src="script.js"></script>
