@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Set admin key for access validation
   const ADMIN_KEY = "KAY";
 
-  // Function to check admin key and display the correct screen
   function checkAdminKey() {
     const apiKey = document.getElementById("admin-key").value;
     const accessDeniedMessage = document.getElementById("access-denied");
@@ -11,11 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("login-screen").classList.remove("active");
       document.getElementById("main-screen").classList.add("active");
     } else {
-      accessDeniedMessage.style.display = "block";
+      accessDeniedMessage.classList.add("show");
     }
   }
 
-  // Expose checkAdminKey function to global scope for the onclick attribute
   window.checkAdminKey = checkAdminKey;
 
   // Restrict day selection to one checkbox per group
@@ -30,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+  
 
   // Save button click handler
   function saveChanges() {

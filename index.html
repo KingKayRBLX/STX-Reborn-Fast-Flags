@@ -23,8 +23,10 @@
       min-height: 100vh;
       padding: 10px;
       color: #ffffff;
+      overflow: hidden;
     }
 
+    /* Container styling */
     .container {
       max-width: 700px;
       width: 100%;
@@ -32,20 +34,23 @@
       background-color: #1c1c1c;
       border-radius: 10px;
       box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.5s ease, transform 0.5s ease;
       display: none;
     }
 
-    /* Make the login screen visible by default */
-    #login-screen.active {
-      display: block;
-    }
-
-    #main-screen {
-      display: none;
-    }
-
+    /* Active state to make the container visible */
     .container.active {
       display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Styling for the login screen */
+    #login-screen {
+      max-width: 300px;
+      padding: 15px 20px;
     }
 
     header {
@@ -59,12 +64,6 @@
       text-shadow: 0px 4px 10px rgba(52, 152, 219, 0.5);
     }
 
-    h2 {
-      font-size: 1.5em;
-      margin-top: 20px;
-      color: #3498db;
-    }
-
     label {
       font-size: 1em;
       display: block;
@@ -76,41 +75,35 @@
     input[type="number"],
     input[type="time"] {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
+      padding: 8px;
+      margin-bottom: 15px;
       background-color: #2a2a2a;
       border: 2px solid #444;
       border-radius: 6px;
       color: #ddd;
       outline: none;
+      transition: border-color 0.3s;
     }
 
-    input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      background-color: #333;
-      border: 2px solid #3498db;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    input[type="checkbox"]:checked {
-      background-color: #3498db;
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="time"]:focus {
       border-color: #3498db;
+      box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
     }
 
+    /* Button styling */
     .button {
       width: 100%;
-      padding: 12px;
-      margin-top: 20px;
+      padding: 10px;
       border-radius: 6px;
       font-size: 1em;
       font-weight: bold;
       color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s;
       border: none;
+      margin-top: 10px;
     }
 
     .button-blue {
@@ -131,8 +124,20 @@
     .access-denied-message {
       color: #e74c3c;
       text-align: center;
-      font-size: 1.2em;
+      font-size: 1.1em;
       margin-top: 10px;
+      display: none;
+    }
+
+    .access-denied-message.show {
+      display: block;
+      animation: fadeIn 0.5s forwards;
+    }
+
+    /* Keyframe animation for smooth fade-in */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
@@ -141,14 +146,12 @@
   <!-- Login Screen - Shown by default -->
   <div class="container active" id="login-screen">
     <header>
-      <h1>STX Reborn - Admin Login</h1>
+      <h1>Admin Login</h1>
     </header>
     <label for="admin-key">Admin Key:</label>
     <input type="text" id="admin-key" placeholder="Enter Admin Key" />
     <button class="button button-blue" onclick="checkAdminKey()">Login</button>
-    <p id="access-denied" class="access-denied-message" style="display: none;">
-      Access Denied: Invalid Admin Key
-    </p>
+    <p id="access-denied" class="access-denied-message">Access Denied: Invalid Admin Key</p>
   </div>
 
   <!-- Main Fast Flags Editor Screen -->
