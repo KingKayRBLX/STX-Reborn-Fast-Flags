@@ -5,14 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>STX Reborn FFlags Editor</title>
 
-  <!-- Firebase CDN for Firebase App and Firestore -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
   <style>
-    /* Same styles as before */
-        /* Base Styling */
-        * {
+    /* Base Styling */
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -21,12 +16,11 @@
     body {
       font-family: Arial, sans-serif;
       color: #ffffff;
-      background-color: #0e0e0e;
+      background-color: #0d1a2b;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      overflow: hidden;
     }
 
     /* Login Screen */
@@ -35,32 +29,32 @@
       max-width: 300px;
       width: 90%;
       padding: 40px;
-      background: #1c1c1c;
+      background: #142850;
       border-radius: 10px;
       box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
       animation: fadeIn 1s ease forwards;
     }
 
     #login-screen h1 {
-      color: #ff6f61;
+      color: #00aaff;
       font-size: 2em;
       margin-bottom: 20px;
-      text-shadow: 0px 0px 10px #ff6f61;
+      text-shadow: 0px 0px 10px #00aaff;
     }
 
     #login-screen input[type="text"] {
       width: 100%;
       padding: 12px;
       margin: 15px 0;
-      background: #333;
+      background: #1e3a5a;
       border: none;
-      color: #eee;
+      color: #ffffff;
       border-radius: 6px;
       outline: none;
     }
 
     .login-button {
-      background: #ff6f61;
+      background: #00aaff;
       border: none;
       color: white;
       padding: 10px 20px;
@@ -72,7 +66,7 @@
     }
 
     .login-button:hover {
-      background: #ff4730;
+      background: #0088cc;
     }
 
     .login-message {
@@ -83,8 +77,83 @@
     /* Main UI container */
     .container {
       display: none;
-      opacity: 0;
+      max-width: 700px;
+      width: 100%;
+      padding: 20px;
+      background-color: #1e3a5a;
+      border-radius: 10px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
       animation: fadeInContent 0.6s forwards;
+    }
+
+    /* Fast Flags Editor */
+    h1 {
+      font-size: 1.8em;
+      color: #00aaff;
+      text-shadow: 0px 4px 10px rgba(0, 170, 255, 0.5);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0 5px;
+      color: #ddd;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="time"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #27496d;
+      border: 2px solid #3e5f8a;
+      border-radius: 6px;
+      color: #ddd;
+      outline: none;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      appearance: none;
+      background-color: #1e3a5a;
+      border: 2px solid #00aaff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked {
+      background-color: #00aaff;
+      border-color: #00aaff;
+    }
+
+    .day-select label {
+      font-size: 0.9em;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .save-button {
+      width: 100%;
+      padding: 15px;
+      background-color: #00aaff;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s ease;
+      margin-top: 20px;
+    }
+
+    .save-button:hover {
+      background-color: #0088cc;
+      transform: translateY(-2px);
     }
 
     /* Keyframes */
@@ -112,23 +181,38 @@
   </div>
 
   <!-- Main UI container (hidden initially) -->
-  <div class="container" id="main-ui" style="display: none;">
+  <div class="container" id="main-ui">
     <header>
       <h1>STX Reborn Fast Flags Editor</h1>
     </header>
-    <!-- Main editor content here -->
-    <section class="admin-key-section">
-      <label for="admin-key">Enter Admin Credentials:</label>
-      <input
-        type="text"
-        id="admin-key"
-        placeholder="Paste your provided administrator credentials."
-      />
+
+    <section class="data-section">
+      <label for="update-countdown">Update Countdown (Epoch Timestamp):</label>
+      <input type="number" id="update-countdown" placeholder="Enter Unix timestamp" />
+
+      <div class="day-section">
+        <h3>Merchant Spawn - Day 1</h3>
+        <label for="merchant-spawn-time-1">Spawn Time (24-hour format):</label>
+        <input type="time" id="merchant-spawn-time-1" />
+
+        <label>Select Spawn Day 1:</label>
+        <div class="day-select">
+          <label><input type="checkbox" name="spawn-day-1" value="Monday" /> Monday</label>
+          <label><input type="checkbox" name="spawn-day-1" value="Tuesday" /> Tuesday</label>
+          <label><input type="checkbox" name="spawn-day-1" value="Wednesday" /> Wednesday</label>
+          <label><input type="checkbox" name="spawn-day-1" value="Thursday" /> Thursday</label>
+          <label><input type="checkbox" name="spawn-day-1" value="Friday" /> Friday</label>
+          <label><input type="checkbox" name="spawn-day-1" value="Saturday" /> Saturday</label>
+          <label><input type="checkbox" name="spawn-day-1" value="Sunday" /> Sunday</label>
+        </div>
+      </div>
+
+      <!-- Additional sections for Despawn, etc. -->
+
+      <button class="save-button" id="save-button">Save Changes</button>
     </section>
-    <!-- Add more sections as needed -->
   </div>
 
-  <!-- Main Script -->
   <script src="script.js"></script>
 </body>
 </html>

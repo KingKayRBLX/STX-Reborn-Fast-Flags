@@ -1,4 +1,5 @@
-// Initialize Firebase
+// Commenting out Firebase parts
+/*
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
@@ -8,29 +9,41 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 
-// Initialize Firebase App and Firestore
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+// firebase.initializeApp(firebaseConfig);
+// const db = firebase.firestore();
+*/
 
-// Function to verify admin key from Firestore
-async function verifyAdminKey(adminKey) {
-  const adminDoc = db.collection("admins").doc(adminKey);
-  const docSnap = await adminDoc.get();
-  return docSnap.exists;
-}
+// Static admin key
+const ADMIN_KEY = "KAY";
 
-// Event listener for login button
-document.getElementById('login-button').addEventListener('click', async () => {
+// Login button event listener
+document.getElementById('login-button').addEventListener('click', () => {
   const adminKey = document.getElementById('admin-login-key').value;
   const loginMessage = document.getElementById('login-message');
 
-  // Verify the admin key
-  const isValid = await verifyAdminKey(adminKey);
-  if (isValid) {
+  if (adminKey === ADMIN_KEY) {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('main-ui').style.display = 'block';
   } else {
     loginMessage.textContent = "Access Denied: Invalid Admin Key";
     loginMessage.style.color = "red";
   }
+});
+
+// Event listener for Save Changes button
+document.getElementById('save-button').addEventListener('click', () => {
+  const updateCountdown = document.getElementById('update-countdown').value;
+  const spawnTime1 = document.getElementById('merchant-spawn-time-1').value;
+  
+  // Get checked day for spawn-day-1
+  const spawnDay1 = document.querySelector('input[name="spawn-day-1"]:checked');
+  const selectedSpawnDay1 = spawnDay1 ? spawnDay1.value : null;
+
+  const data = {
+    updateCountdown: updateCountdown,
+    merchantSpawn1: { time: spawnTime1, day: selectedSpawnDay1 },
+  };
+
+  console.log("Saving data:", data);
+  alert("Changes saved successfully!");
 });
