@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Set admin key for access validation
   const ADMIN_KEY = "KAY";
 
-  // Function to check admin key and display the correct screen
   function checkAdminKey() {
     const apiKey = document.getElementById("admin-key").value;
     const accessDeniedMessage = document.getElementById("access-denied");
@@ -11,14 +9,12 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("login-screen").classList.remove("active");
       document.getElementById("main-screen").classList.add("active");
     } else {
-      accessDeniedMessage.style.display = "block";
+      accessDeniedMessage.classList.add("show");
     }
   }
 
-  // Expose checkAdminKey function to global scope for the onclick attribute
   window.checkAdminKey = checkAdminKey;
 
-  // Restrict day selection to one checkbox per group
   document.querySelectorAll(".day-select").forEach((daySelect) => {
     daySelect.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
       checkbox.addEventListener("change", () => {
@@ -31,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Save button click handler
   function saveChanges() {
     const updateCountdown = document.getElementById("update-countdown").value;
     const spawnTime1 = document.getElementById("merchant-spawn-time-1").value;
@@ -39,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const despawnTime1 = document.getElementById("merchant-despawn-time-1").value;
     const despawnTime2 = document.getElementById("merchant-despawn-time-2").value;
 
-    // Get checked values for spawn and despawn days
     const spawnDay1 = getCheckedDay("spawn-day-1");
     const spawnDay2 = getCheckedDay("spawn-day-2");
     const despawnDay1 = getCheckedDay("despawn-day-1");
@@ -57,12 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
     alert("Data saved successfully!");
   }
 
-  // Helper function to get the checked day
   function getCheckedDay(name) {
     const checkedCheckbox = document.querySelector(`input[name="${name}"]:checked`);
     return checkedCheckbox ? checkedCheckbox.value : null;
   }
 
-  // Expose saveChanges function to global scope for the onclick attribute
   window.saveChanges = saveChanges;
 });

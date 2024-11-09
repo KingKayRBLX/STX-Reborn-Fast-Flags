@@ -1,0 +1,86 @@
+/* Base styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #161616;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+    color: #ffffff;
+    overflow: hidden;
+  }
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  @keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .container {
+    display: none;
+    max-width: 700px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #1c1c1c;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    animation: slideDown 1s ease forwards;
+  }
+  
+  .container.active {
+    display: block;
+  }
+  
+  header h1 {
+    font-size: 1.8em;
+    color: #3498db;
+    text-shadow: 0px 4px 10px rgba(52, 152, 219, 0.5);
+  }
+  
+  .button-blue {
+    background-color: #3498db;
+    transition: background-color 0.3s;
+  }
+  
+  .button-blue:hover {
+    background-color: #2980b9;
+    box-shadow: 0 0 15px rgba(41, 128, 185, 0.6);
+  }
+  
+  .access-denied-message {
+    display: none;
+    color: #e74c3c;
+    text-align: center;
+    font-size: 1.1em;
+  }
+  
+  .access-denied-message.show {
+    display: block;
+    animation: fadeIn 0.5s forwards;
+  }
+  
+  .editor-screen {
+    animation: scaleUp 0.8s ease forwards;
+  }
+  
+  /* Checkbox styling */
+  input[type="checkbox"]:checked {
+    background-color: #3498db;
+  }
+  
