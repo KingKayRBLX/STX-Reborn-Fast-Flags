@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Login Screen -->
+
+  <!-- Login Screen - Initially Visible -->
   <div class="container active" id="login-screen">
     <header>
       <h1>STX Reborn Login</h1>
@@ -19,7 +20,7 @@
     <p id="access-denied" class="access-denied-message">Access Denied: Invalid Admin Key</p>
   </div>
 
-  <!-- Main Fast Flags Editor Screen -->
+  <!-- Main Fast Flags Editor Screen - Initially Hidden -->
   <div class="container editor-screen" id="main-screen">
     <header>
       <h1>STX Reborn Fast Flags Editor</h1>
@@ -31,7 +32,6 @@
 
       <h2>Merchant</h2>
       <div class="columns">
-        <!-- Merchant Spawn Times Column -->
         <div class="column">
           <h3>Merchant Spawn Times</h3>
           <div class="day-section">
@@ -48,7 +48,6 @@
               <label><input type="checkbox" name="spawn-day-1" value="Sunday" /> Sunday</label>
             </div>
           </div>
-
           <div class="day-section">
             <h3>Spawn - Day 2</h3>
             <label for="merchant-spawn-time-2">Time (24-hour format):</label>
@@ -64,8 +63,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Merchant Despawn Times Column -->
         <div class="column">
           <h3>Merchant Despawn Times</h3>
           <div class="day-section">
@@ -82,7 +79,6 @@
               <label><input type="checkbox" name="despawn-day-1" value="Sunday" /> Sunday</label>
             </div>
           </div>
-
           <div class="day-section">
             <h3>Despawn - Day 2</h3>
             <label for="merchant-despawn-time-2">Time (24-hour format):</label>
