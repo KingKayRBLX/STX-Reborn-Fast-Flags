@@ -6,9 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const accessDeniedMessage = document.getElementById("access-denied");
 
     if (apiKey === ADMIN_KEY) {
-      document.getElementById("login-screen").classList.remove("active");
       document.getElementById("login-screen").style.display = "none";
-      document.getElementById("main-screen").style.display = "block";
+      document.getElementById("main-screen").classList.add("active");
     } else {
       accessDeniedMessage.classList.add("show");
     }
