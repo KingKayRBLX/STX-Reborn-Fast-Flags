@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (apiKey === ADMIN_KEY) {
       document.getElementById("login-screen").classList.remove("active");
-      document.getElementById("main-screen").classList.add("active");
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("main-screen").style.display = "block";
     } else {
       accessDeniedMessage.classList.add("show");
     }
@@ -58,5 +59,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.saveChanges = saveChanges;
 });
-
-/* e */
