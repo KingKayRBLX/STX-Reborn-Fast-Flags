@@ -155,7 +155,7 @@
   
   .day-select.inline-select {
     display: flex;
-    gap: 15px;
+    gap: 25px;
     flex-wrap: wrap;
   }
   
@@ -171,7 +171,7 @@
     height: 18px;
     appearance: none;
     background-color: #333;
-    border: 1px solid #3498db;
+    border: 1.5px solid #3498db;
     border-radius: 25%;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
