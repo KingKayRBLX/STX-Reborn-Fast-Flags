@@ -9,18 +9,20 @@
 </head>
 <body>
 
-  <!-- Login Screen - Slide down animation with padding and centered elements -->
+  <!-- Login Screen -->
   <div class="login-screen" id="login-screen">
     <header>
       <h1>STX Reborn Login</h1>
     </header>
-    <label for="admin-key">Admin Key:</label>
-    <input type="text" id="admin-key" placeholder="Enter Admin Key" />
-    <button class="button button-blue" onclick="checkAdminKey()">Login</button>
-    <p id="access-denied" class="access-denied-message">Access Denied: Invalid Admin Key</p>
+    <div class="login-content">
+      <label for="admin-key">Admin Key:</label>
+      <input type="text" id="admin-key" placeholder="Enter Admin Key" />
+      <button class="button button-blue" onclick="checkAdminKey()">Login</button>
+      <p id="access-denied" class="access-denied-message">Access Denied: Invalid Admin Key</p>
+    </div>
   </div>
 
-  <!-- Main Fast Flags Editor Screen - Improved padding and animations -->
+  <!-- Main Fast Flags Editor Screen -->
   <div class="editor-screen" id="main-screen">
     <header>
       <h1>STX Reborn Fast Flags Editor</h1>
@@ -32,65 +34,68 @@
 
       <h2>Merchant</h2>
       <div class="columns">
+        <!-- Spawn Times Column -->
         <div class="column">
           <h3>Merchant Spawn Times</h3>
           <div class="day-section">
             <h3>Spawn - Day 1</h3>
             <label for="merchant-spawn-time-1">Time (24-hour format):</label>
             <input type="time" id="merchant-spawn-time-1" />
-            <div class="day-select">
-              <label><input type="checkbox" name="spawn-day-1" value="Monday" /> Monday</label>
-              <label><input type="checkbox" name="spawn-day-1" value="Tuesday" /> Tuesday</label>
-              <label><input type="checkbox" name="spawn-day-1" value="Wednesday" /> Wednesday</label>
-              <label><input type="checkbox" name="spawn-day-1" value="Thursday" /> Thursday</label>
-              <label><input type="checkbox" name="spawn-day-1" value="Friday" /> Friday</label>
-              <label><input type="checkbox" name="spawn-day-1" value="Saturday" /> Saturday</label>
-              <label><input type="checkbox" name="spawn-day-1" value="Sunday" /> Sunday</label>
+            <div class="day-select inline-select">
+              <label><input type="checkbox" name="spawn-day-1" value="Monday" /> Mon</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Tuesday" /> Tue</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Wednesday" /> Wed</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Thursday" /> Thu</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Friday" /> Fri</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Saturday" /> Sat</label>
+              <label><input type="checkbox" name="spawn-day-1" value="Sunday" /> Sun</label>
             </div>
           </div>
           <div class="day-section">
             <h3>Spawn - Day 2</h3>
             <label for="merchant-spawn-time-2">Time (24-hour format):</label>
             <input type="time" id="merchant-spawn-time-2" />
-            <div class="day-select">
-              <label><input type="checkbox" name="spawn-day-2" value="Monday" /> Monday</label>
-              <label><input type="checkbox" name="spawn-day-2" value="Tuesday" /> Tuesday</label>
-              <label><input type="checkbox" name="spawn-day-2" value="Wednesday" /> Wednesday</label>
-              <label><input type="checkbox" name="spawn-day-2" value="Thursday" /> Thursday</label>
-              <label><input type="checkbox" name="spawn-day-2" value="Friday" /> Friday</label>
-              <label><input type="checkbox" name="spawn-day-2" value="Saturday" /> Saturday</label>
-              <label><input type="checkbox" name="spawn-day-2" value="Sunday" /> Sunday</label>
+            <div class="day-select inline-select">
+              <label><input type="checkbox" name="spawn-day-2" value="Monday" /> Mon</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Tuesday" /> Tue</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Wednesday" /> Wed</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Thursday" /> Thu</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Friday" /> Fri</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Saturday" /> Sat</label>
+              <label><input type="checkbox" name="spawn-day-2" value="Sunday" /> Sun</label>
             </div>
           </div>
         </div>
+
+        <!-- Despawn Times Column -->
         <div class="column">
           <h3>Merchant Despawn Times</h3>
           <div class="day-section">
             <h3>Despawn - Day 1</h3>
             <label for="merchant-despawn-time-1">Time (24-hour format):</label>
             <input type="time" id="merchant-despawn-time-1" />
-            <div class="day-select">
-              <label><input type="checkbox" name="despawn-day-1" value="Monday" /> Monday</label>
-              <label><input type="checkbox" name="despawn-day-1" value="Tuesday" /> Tuesday</label>
-              <label><input type="checkbox" name="despawn-day-1" value="Wednesday" /> Wednesday</label>
-              <label><input type="checkbox" name="despawn-day-1" value="Thursday" /> Thursday</label>
-              <label><input type="checkbox" name="despawn-day-1" value="Friday" /> Friday</label>
-              <label><input type="checkbox" name="despawn-day-1" value="Saturday" /> Saturday</label>
-              <label><input type="checkbox" name="despawn-day-1" value="Sunday" /> Sunday</label>
+            <div class="day-select inline-select">
+              <label><input type="checkbox" name="despawn-day-1" value="Monday" /> Mon</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Tuesday" /> Tue</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Wednesday" /> Wed</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Thursday" /> Thu</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Friday" /> Fri</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Saturday" /> Sat</label>
+              <label><input type="checkbox" name="despawn-day-1" value="Sunday" /> Sun</label>
             </div>
           </div>
           <div class="day-section">
             <h3>Despawn - Day 2</h3>
             <label for="merchant-despawn-time-2">Time (24-hour format):</label>
             <input type="time" id="merchant-despawn-time-2" />
-            <div class="day-select">
-              <label><input type="checkbox" name="despawn-day-2" value="Monday" /> Monday</label>
-              <label><input type="checkbox" name="despawn-day-2" value="Tuesday" /> Tuesday</label>
-              <label><input type="checkbox" name="despawn-day-2" value="Wednesday" /> Wednesday</label>
-              <label><input type="checkbox" name="despawn-day-2" value="Thursday" /> Thursday</label>
-              <label><input type="checkbox" name="despawn-day-2" value="Friday" /> Friday</label>
-              <label><input type="checkbox" name="despawn-day-2" value="Saturday" /> Saturday</label>
-              <label><input type="checkbox" name="despawn-day-2" value="Sunday" /> Sunday</label>
+            <div class="day-select inline-select">
+              <label><input type="checkbox" name="despawn-day-2" value="Monday" /> Mon</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Tuesday" /> Tue</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Wednesday" /> Wed</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Thursday" /> Thu</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Friday" /> Fri</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Saturday" /> Sat</label>
+              <label><input type="checkbox" name="despawn-day-2" value="Sunday" /> Sun</label>
             </div>
           </div>
         </div>
